@@ -1,0 +1,26 @@
+services:
+  buildenv:
+    container_name: ubuntu-build-env
+    image: ubuntu-build-env:jammy
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        BUILDER_UID: ${BUILDER_UID:-1003}
+        BUILDER_GID: ${BUILDER_GID:-1003}
+        BUILDER_USER: ${BUILDER_USER:-builder}
+        BUILDER_GROUP: ${BUILDER_GROUP:-builder}
+    user: "${BUILDER_UID:-1003}:${BUILDER_GID:-1003}"
+    working_dir: /work
+    environment:
+      LANG: C.UTF-8
+      LC_ALL: C.UTF-8
+      TZ: ${TZ:-UTC}
+    volumes:
+      - ${WORK_DIR_HOST:-../}:/work:rw
+    tty: true
+    stdin_open: true
+    # cap_add:
+    #   - SYS_PTRACE
+    # security_opt:
+    #   - seccomp:unconfined

@@ -1,0 +1,12 @@
+[project]
+name = "ae-leanos"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "kconfiglib>=14.1.0",
+    "networkx>=3.5",
+    "python-sat>=1.8.dev20",
+    "tuxmake>=1.33.1",
+]

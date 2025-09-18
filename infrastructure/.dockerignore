@@ -1,0 +1,11 @@
+# Ignore local build artifacts and VCS metadata
+.git
+.gitignore
+.env
+src/*
+build/*
+out/*
+**/__pycache__
+**/*.pyc
+**/.DS_Store
+**/.vscode
