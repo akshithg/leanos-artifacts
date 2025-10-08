@@ -6,6 +6,23 @@ This repo contains all the code artifacts for the paper "In Pursuit of Lean OS K
 
 Docker + Docker Compose
 
+```bash
+# build and start the docker image/container and test environment
+make up
+
+# stop the container
+make down
+
+# enter the container, the current working directory will be mounted to /work in the container
+make shell
+
+# prepare the python env, and linux src + build environment
+make prepare # inside the container
+
+# clean up for a fresh start
+make clean   # inside the container
+```
+
 ## Overview
 
 ```txt
@@ -25,11 +42,11 @@ artifacts/
 ├── dice/                   # Trace-free approach: Dice
 │   └── dice.py             # Script that iteratively prunes the kernel config tree/graph
 │
-├── Makefile                # Makefile to automate builds and tests
+├── uv.lock                 # Python environment lock file
+├── Makefile                # Makefile
 ├── LICENSE                 # License file
 └── readme.md               # This file
 ```
-
 
 ## System 1: Tracie
 
@@ -52,15 +69,15 @@ flowchart LR
 
 Code:
 
-- [qemu.patch](./artifact/tracie/qemu.patch): Patch for QEMU to support Tracie's tracing mechanism (PC + CR3).
-- [cr3-kmod](./artifact/tracie/cr3-kmod/): Kernel module to log CR3 values for filtering user-space noise from workload kernel traces.
-- [kconfig_db.py](./artifact/tracie/kconfig_db.py): Script to build the [config.db](./artifact/tracie/config.db) database from the Linux kernel source which maps config options to source files and line numbers.
-- [trace2config.py](./artifact/tracie/trace2config.py): Script to map execution traces to kernel configuration options.
-- [config_solver.py](./artifact/tracie/config_solver.py): Script to compute a minimal kernel configuration based on traced options using a SAT solver.
+- [qemu.patch](./artifacts/tracie/qemu.patch): Patch for QEMU to support Tracie's tracing mechanism (PC + CR3).
+- [cr3-kmod](./artifacts/tracie/cr3-kmod/): Kernel module to log CR3 values for filtering user-space noise from workload kernel traces.
+- [kconfig_db.py](./artifacts/tracie/kconfig_db.py): Script to build the [config.db](./artifacts/tracie/config.db) database from the Linux kernel source which maps config options to source files and line numbers.
+- [trace2config.py](./artifacts/tracie/trace2config.py): Script to map execution traces to kernel configuration options.
+- [config_solver.py](./artifacts/tracie/config_solver.py): Script to compute a minimal kernel configuration based on traced options using a SAT solver.
 
 Data:
 
-- [config.db](./artifact/tracie/config.db): Database mapping kernel configuration options to source files and line numbers.
+- [config.db](./artifacts/tracie/config.db): Database mapping kernel configuration options to source files and line numbers.
 
 ## System 2: Dice
 
@@ -82,4 +99,9 @@ flowchart TD
 
 Code:
 
-- [config_pruner.py](./artifact/dice/config_pruner.py): Script that iteratively prunes the kernel configuration tree/graph to remove unused options.
+- [dice.py](./artifacts/dice/dice.py): Script that iteratively prunes the kernel configuration tree/graph to remove unused options.
+
+
+## Claim
+
+We share steps to reproduce the claims in the paper in the readme located in [claims/claim1/readme.md](./claims/claim1/readme.md).
