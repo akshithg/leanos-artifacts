@@ -29,11 +29,14 @@ prepare-kernel-src:
 
 
 # Clean
-.PHONY: clean clean-linux
-clean: clean-linux clean-python-env
+.PHONY: clean clean-linux clean-python-env clean-builds
+clean: clean-linux clean-python-env clean-builds
 
 clean-python-env:
 	@rm -rf .venv
 
 clean-linux:
 	@rm -rf artifacts/linux/source artifacts/linux/linux-5.15.tar.xz
+
+clean-builds:
+	@rm -rf claims/**/build
